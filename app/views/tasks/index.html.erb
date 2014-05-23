@@ -1,0 +1,36 @@
+<table class="table table-hover table-striped">
+	<thead>
+		<tr>
+			<th></th>
+			<th>Name</th>
+			<th>Subject</th>
+			<th>Who</th>
+			<th>Status</th>
+			<th>End</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @tasks.each do |task| %>
+			<% if task.status == 1 %>
+				<% @status = 'success' %>
+			<% end %>
+			<% if task.status == 2 %>
+				<% @status = 'warning' %>
+			<% end %>
+			<% if task.status == 3 %>
+				<% @status = 'danger' %>
+			<% end %>
+			<tr class="<%= @status %>">
+				<td><%= link_to 'Edit', edit_task_path(task), :class => "btn btn-xs" %></td>
+				<td><%= link_to task.name, task_path(task)%></td>
+				<td><%= @subject.name %></td>
+				<td><%= @subject.who %></td>
+				<td><%= task.status %></td>
+				<td><%= task.end %></td>
+				<td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-xs"  %></td>
+			</tr>
+		<% end %>
+	</tbody>			
+</table>
+<%= link_to 'New Task', new_task_path(), :class => "btn btn-primary btn-lg" %>
